@@ -8,6 +8,7 @@ Basically, this blueprint takes care of the authentication and provides
 some shortcuts to make your life better when coding (see `pull_project`
 and `add_project_id` for a quick overview)
 """
+
 import datetime
 from functools import wraps
 import hashlib
@@ -134,6 +135,11 @@ def set_show_admin_dashboard_link(endpoint, values):
         and current_app.config["ADMIN_PASSWORD"]
     )
     g.logout_form = LogoutForm()
+
+
+@main.context_processor
+def add_template_variables():
+    return {"SITE_NAME": current_app.config.get("SITE_NAME")}
 
 
 @main.url_value_preprocessor
